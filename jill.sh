@@ -179,10 +179,11 @@ function get_url_from_platform_arch_version() {
   arch=$2
   version=$3
   # TODO: Accept ARM and FreeBSD
-  [[ $arch == *"64" ]] && bit=64 || bit=32
+  [[ $arch == *"64" ]] && xbit=x64 || xbit=x32
   [[ $arch == "mac"* ]] && suffix=mac64.dmg || suffix="$platform-$arch.tar.gz"
+  [[ $arch == "aarch64" ]] && xbit=aarch64
   minor=$(echo "$version" | cut -d. -f1-2 | cut -d- -f1)
-  url="https://julialang-s3.julialang.org/bin/$platform/x$bit/$minor/julia-$version-$suffix"
+  url="https://julialang-s3.julialang.org/bin/$platform/$xbit/$minor/julia-$version-$suffix"
   echo "$url"
 }
 
